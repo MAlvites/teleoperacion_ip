@@ -1,22 +1,21 @@
 #!/usr/bin/env node
 'use strict';
 
-const https = require("https");
-const fs = require("fs");
+//const https = require("https");
+//const fs = require("fs");
 const express = require('express');
 const cors = require('cors');
 const rosnodejs = require('rosnodejs');
 const robotHandler = require('./robotHandler');
-const bodyParser = require('body-parser');
 
 const app = express();
 let robotState = null;
 var moveCommand = "parar";
-let lexHandler = null;
+
 var poseRobot;
 const port =8080;
-var privateKey = fs.readFileSync( '/home/jetson/catkin_ws/src/teleoperacion_ip/src/Certificates/key.pem' );
-var certificate = fs.readFileSync( '/home/jetson/catkin_ws/src/teleoperacion_ip/src/Certificates/cert.pem' );
+//var privateKey = fs.readFileSync( '/home/jetson/catkin_ws/src/teleoperacion_ip/src/Certificates/key.pem' );
+//var certificate = fs.readFileSync( '/home/jetson/catkin_ws/src/teleoperacion_ip/src/Certificates/cert.pem' );
 
 app.use(cors())
 
@@ -51,9 +50,13 @@ rosnodejs.initNode('/webserver', { onTheFly: true})
         robotState = robotHandler.robotHandler()(rosNode);
         poseRobot = robotState.robotState
         setInterval(sendVel,200)
-        https.createServer({
+        app.listen(port, () => {
+            console.log(port);
+          }) 
+
+/*        https.createServer({
             key: privateKey,
             cert: certificate
         }, app).listen(port);
-        console.log(port);
+        console.log(port);*/
     });
