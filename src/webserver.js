@@ -17,7 +17,7 @@ const port =8080;
 //var privateKey = fs.readFileSync( '/home/jetson/catkin_ws/src/teleoperacion_ip/src/Certificates/key.pem' );
 //var certificate = fs.readFileSync( '/home/jetson/catkin_ws/src/teleoperacion_ip/src/Certificates/cert.pem' );
 
-app.use(cors())
+app.use(cors({origin: '*'}));
 
 // Movimientos
 app.post('/move/:mov', (req, res) => {
