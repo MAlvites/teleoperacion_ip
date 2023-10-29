@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
-//const https = require("https");
-//const fs = require("fs");
+const https = require("https");
+const fs = require("fs");
 const express = require('express');
 const cors = require('cors');
 const rosnodejs = require('rosnodejs');
@@ -14,10 +14,21 @@ var moveCommand = "parar";
 
 var poseRobot;
 const port =8080;
-//var privateKey = fs.readFileSync( '/home/jetson/catkin_ws/src/teleoperacion_ip/src/Certificates/key.pem' );
-//var certificate = fs.readFileSync( '/home/jetson/catkin_ws/src/teleoperacion_ip/src/Certificates/cert.pem' );
 
-app.use(cors({origin: '*'}));
+// Certificate
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/bot.qhalirobot.com/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/bot.qhalirobot.com/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/bot.qhalirobot.com/chain.pem', 'utf8');
+
+const credentials = {
+	key: privateKey,
+	cert: certificate,
+	ca: ca
+};
+
+
+
+app.use(cors());
 
 // Movimientos
 app.post('/move/:mov', (req, res) => {
@@ -50,13 +61,10 @@ rosnodejs.initNode('/webserver', { onTheFly: true})
         robotState = robotHandler.robotHandler()(rosNode);
         poseRobot = robotState.robotState
         setInterval(sendVel,200)
-        app.listen(port, () => {
+        /*app.listen(port, () => {
             console.log(port);
           }) 
-
-/*        https.createServer({
-            key: privateKey,
-            cert: certificate
-        }, app).listen(port);
-        console.log(port);*/
+*/
+        https.createServer(credentials, app).listen(port);
+        console.log(port);
     });
