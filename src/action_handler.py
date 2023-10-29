@@ -8,16 +8,16 @@ import serial
 #Dictionary of actions
 dict_action = {
     "cero":"00",
+    "explicacion3":"10",
     "saludo":"20",
-    "explicacion1":"40",
+    "corto":"30",
+    "lamentar":"40",
     "explicacion2":"50",
+    "explicacion1":"60",
+    "estiramiento":"70",
     "apuntar":"80",
-    "explicacion3":"60",
-    "explicacion4":"70",
-    "saludo2":"30",
-    "rutina1":"22",
-    "rutina2":"72",
-      
+    "rutina1":"62",
+    "rutina2":"12",
 }
 
 def send_action(message):
