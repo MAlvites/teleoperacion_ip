@@ -7,7 +7,7 @@ const rosnodejs = require('rosnodejs');
 const std_msgs = rosnodejs.require('std_msgs').msg;
 const geometry_msgs = rosnodejs.require('geometry_msgs').msg;
 
-var actions=["saludo", "negar", "mirar-pantalla", "lamentar", "entregar-mando", "despedida", "celebrar", "asentir"]
+//var actions=["cero", "explicacion3", "mirar-pantalla", "lamentar", "entregar-mando", "despedida", "celebrar", "asentir"]
 var velocity_msg = new geometry_msgs.Twist()
 
 exports.robotHandler = function() {
@@ -62,14 +62,14 @@ exports.robotHandler = function() {
 
     stateMachine.prototype.action = function(command) {
         let msg = new std_msgs.String();
-        if (actions.includes(command)){
+        //if (actions.includes(command)){
             msg.data=command
             this.actionPublisher.publish(msg)
             console.log("Se ejecuta " + command)
-        }
-        else{
-            console.log(command + " no es una accion válida")
-        }
+        //}
+        //else{
+        //    console.log(command + " no es una accion válida")
+        //}
     };
 
     stateMachine.prototype.getPose = function() {

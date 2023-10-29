@@ -21,8 +21,9 @@ dict_action = {
 }
 
 def send_action(message):
-    serial_port.write(dict_action[message.data].encode())
-    print("Se envio "+ message.data + " = " + dict_action[message.data])
+    if message.data in dict_action.keys():
+        serial_port.write(dict_action[message.data].encode())
+        print("Se envio "+ message.data + " = " + dict_action[message.data])
 
 if __name__ == '__main__':
     serial_port = serial.Serial(
