@@ -61,10 +61,10 @@ rosnodejs.initNode('/webserver', { onTheFly: true})
         robotState = robotHandler.robotHandler()(rosNode);
         poseRobot = robotState.robotState
         setInterval(sendVel,200)
-        /*app.listen(port, () => {
-            console.log(port);
+        app.listen(8000, () => {
+           // console.log(8000);
           }) 
-*/
+
         https.createServer(credentials, app).listen(port);
         console.log(port);
     });
