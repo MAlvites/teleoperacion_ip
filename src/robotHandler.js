@@ -41,14 +41,13 @@ exports.robotHandler = function() {
                 velocity_msg.angular.z = 0.0;
                 break;
             case "girar-izquierda":
-                velocity_msg.angular.z += -0.1;
+                velocity_msg.angular.z += 0.1;
                 break;
             case "girar-derecha":
-                velocity_msg.angular.z += 0.1;
+                velocity_msg.angular.z += -0.1;
                 break;
             default:
                 break;
-
         }
 
         this.movePublisher.publish(velocity_msg)      
